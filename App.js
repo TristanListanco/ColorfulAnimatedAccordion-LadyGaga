@@ -4,10 +4,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import data from "./components/data";
 
 export default function App() {
+  const [currentIndex, setCurrentIndex] = React.useState(null);
+  console.log();
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      {data.map(({ bg, color, album, year }) => {
+      {data.map(({ bg, color, album, year, songs }) => {
         return (
           <TouchableOpacity
             key={album}
@@ -18,6 +20,13 @@ export default function App() {
             <View style={[styles.card, { backgroundColor: bg }]}>
               <Text style={[styles.heading, { color }]}>{album}</Text>
               <Text style={[styles.heading, { color }]}>{year}</Text>
+              <View style={[styles.songList, { color }]}>
+                {songs.map((song) => (
+                  <Text key={song} style={[styles.body]}>
+                    {song}
+                  </Text>
+                ))}
+              </View>
             </View>
           </TouchableOpacity>
         );
@@ -45,5 +54,10 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     textTransform: "uppercase",
     letterSpacing: -1,
+  },
+  body: {
+    fontSize: 20,
+    lineHeight: 20 * 1.5,
+    textAlign: "center",
   },
 });
